@@ -25,10 +25,10 @@ G = Generator(z_dim=20, image_size=64)
 D = Discriminator(z_dim=20, image_size=64)
 
 '''-------load weights-------'''
-G_load_weights = torch.load('./checkpoints/G_DCGAN_100.pth')
+G_load_weights = torch.load('./checkpoints/G_AnoGAN_300.pth')
 G.load_state_dict(fix_model_state_dict(G_load_weights))
 
-D_load_weights = torch.load('./checkpoints/D_DCGAN_100.pth')
+D_load_weights = torch.load('./checkpoints/D_AnoGAN_300.pth')
 D.load_state_dict(fix_model_state_dict(D_load_weights))
 
 G.to(device)

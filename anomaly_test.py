@@ -46,10 +46,10 @@ G = Generator(z_dim=20, image_size=64)
 D = Discriminator(z_dim=20, image_size=64)
 
 '''-------load weights-------'''
-G_load_weights = torch.load('./checkpoints/G_AnoGAN_100.pth')
+G_load_weights = torch.load('./checkpoints/G_AnoGAN_300.pth')
 G.load_state_dict(fix_model_state_dict(G_load_weights))
 
-D_load_weights = torch.load('./checkpoints/D_AnoGAN_100.pth')
+D_load_weights = torch.load('./checkpoints/D_AnoGAN_300.pth')
 D.load_state_dict(fix_model_state_dict(D_load_weights))
 
 G.to(device)
@@ -102,7 +102,7 @@ for epoch in range(5000+1):
 
 fake_img = G(z)
 
-loss, loss_each, residual_loss_each = Anomaly_score(x, fake_img, D_update, Lambda=0.1)
+loss, loss_each, residual_loss_each = Anomaly_score(x, fake_img, D, Lambda=0.1)
 
 loss_each = loss_each.cpu().detach().numpy()
 print("total loss：", np.round(loss_each, 0))
@@ -117,3 +117,5 @@ for i in range(0, 5):
     # generated
     plt.subplot(2, 5, 5+i+1)
     plt.imshow(fake_img[i][0].cpu().detach().numpy(), 'gray')
+
+plt.show()

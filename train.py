@@ -75,7 +75,7 @@ def train_model(G, D, dataloader, num_epochs, save_model_name='model'):
     criterion = nn.BCEWithLogitsLoss(reduction='mean')
 
     z_dim = 20
-    mini_batch_size = 256
+    mini_batch_size = 64
 
     G.train()
     D.train()
@@ -173,15 +173,15 @@ def main():
     G.apply(weights_init)
     D.apply(weights_init)
 
-    train_img_list=make_datapath_list(num=1000)
+    train_img_list=make_datapath_list(num=200)
     mean = (0.5,)
     std = (0.5,)
     train_dataset = GAN_Img_Dataset(file_list=train_img_list, transform=ImageTransform(mean, std))
 
-    batch_size = 256
+    batch_size = 64
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
-    num_epochs = 100
+    num_epochs = 300
     G_update, D_update = train_model(G, D, dataloader=train_dataloader, num_epochs=num_epochs, save_model_name='AnoGAN')
 
 
